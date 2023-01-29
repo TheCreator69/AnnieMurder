@@ -13,28 +13,35 @@ var coyoteTime = 0
 var jumpBufferTime = 0
 var was_on_floor = is_on_floor()
 
-onready var murderDetection = $MurderDetection
+onready var flipper = $Flipper
+onready var murderDetection = $Flipper/MurderDetection
 onready var camera = $Camera2D
+onready var pause_menu = $PauseMenu
 
 signal player_died
 
 func _ready() -> void:
-	pass
+	pause_menu.owner = self
 
 func _input(event):
 	if event.is_action_pressed("left"):
 		if !facing_left:
-			scale.x = -1
+			flipper.scale.x = -1
 			facing_left = true
 	elif event.is_action_pressed("right"):
 		if facing_left:
-			scale.x = -1
+			flipper.scale.x = 1
 			facing_left = false
 	elif event.is_action_pressed("murder"):
 		if(murderDetection.is_colliding()):
-			var firstEnemy = murderDetection.get_collider()
-			if firstEnemy.has_method("is_enemy") and is_instance_valid(firstEnemy):
-				firstEnemy.queue_free()
+			var enemy = murderDetection.get_collider()
+			if enemy.has_method("is_enemy") and is_instance_valid(enemy):
+				enemy.attempt_kill()
+			elif enemy.has_method("is_target") and is_instance_valid(enemy):
+				enemy.kill()
+	elif event.is_action_pressed("pause"):
+		_on_pause_change(true)
+		get_tree().paused = true
 
 func _set_velocity():
 	if not is_on_floor():
@@ -88,6 +95,12 @@ func _physics_process(delta):
 
 func kill():
 	emit_signal("player_died")
+
+func _on_pause_change(paused):
+	if paused:
+		pause_menu.visible = true
+	else:
+		pause_menu.visible = false
 
 func is_player():
 	return false

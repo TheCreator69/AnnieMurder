@@ -98,10 +98,14 @@ func shoot() -> void:
 	var bullet = Bullet.instance()
 	var vectorToPlayer = player.global_position - global_position
 	bullet.fire(bulletSpawnPos.global_position, vectorToPlayer.normalized())
-	print(get_tree().current_scene.add_child(bullet)) # Add bullet to level
+	get_tree().current_scene.add_child(bullet) # Add bullet to level
 
 func _on_SearchTimer_timeout() -> void:
 	_switch_state(State.PATROLLING)
+
+func attempt_kill():
+	if enemyState != State.CHASING:
+		queue_free()
 
 func is_enemy():
 	return "Chicken"
