@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Player.gd" type="Script" id=2]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sounds/JumpBoing.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/Footstep.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Stabby.mp3" type="AudioStream" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 31.0
@@ -47,3 +50,16 @@ margin_left = -512.0
 margin_top = -300.0
 margin_right = 513.0
 margin_bottom = 302.0
+
+[node name="JumpAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -4.0
+pitch_scale = 1.5
+
+[node name="StabbyAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = -3.0
+
+[node name="FootstepAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = -5.0

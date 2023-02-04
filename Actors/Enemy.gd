@@ -14,6 +14,7 @@ onready var searchTimer = $SearchTimer
 onready var bulletSpawnPos = $BulletSpawnPosition
 
 var Bullet = preload("res://Actors/Bullet.tscn")
+onready var gunshot_audio = $GunshotAudio
 
 enum State {
 	PATROLLING,
@@ -93,6 +94,7 @@ func _on_Vision_area_exited(area: Area2D) -> void:
 func _on_ShotTimer_timeout() -> void:
 	if player != null:
 		shoot()
+		gunshot_audio.play()
 
 func shoot() -> void:
 	var bullet = Bullet.instance()

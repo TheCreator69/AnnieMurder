@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/JumpBoing.mp3-72c759b4e2973a67e984b70542bc1240.mp3str"
+
+[deps]
+
+source_file="res://Sounds/JumpBoing.mp3"
+dest_files=[ "res://.import/JumpBoing.mp3-72c759b4e2973a67e984b70542bc1240.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

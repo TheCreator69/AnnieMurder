@@ -18,6 +18,10 @@ onready var murderDetection = $Flipper/MurderDetection
 onready var camera = $Camera2D
 onready var pause_menu = $PauseMenu
 
+onready var jump_audio = $JumpAudio
+onready var stabby_audio = $StabbyAudio
+onready var footstep_audio = $FootstepAudio
+
 signal player_died
 
 func _ready() -> void:
@@ -37,13 +41,17 @@ func _input(event):
 			var enemy = murderDetection.get_collider()
 			if enemy.has_method("is_enemy") and is_instance_valid(enemy):
 				enemy.attempt_kill()
+				stabby_audio.play()
 			elif enemy.has_method("is_target") and is_instance_valid(enemy):
 				enemy.kill()
+				stabby_audio.play()
 	elif event.is_action_pressed("pause"):
 		_on_pause_change(true)
 		get_tree().paused = true
 
 func _set_velocity():
+	if is_on_ceiling():
+		velocity.y = 0
 	if not is_on_floor():
 		velocity.y += gravity
 		velocity.y = min(velocity.y, maxGravity)
@@ -55,20 +63,26 @@ func _set_velocity():
 		if jumpBufferTime > 0:
 			velocity.y = -jumpSpeed
 			jumpBufferTime = 0
+			jump_audio.play()
 	
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor() or coyoteTime <= 0.25:
 			velocity.y = -jumpSpeed
-			# TODO: Allow player to hold down jump button for a bit for higher jump?
+			jump_audio.play()
 		else:
 			jumpBufferTime = 0.15
 		
 	if Input.is_action_pressed("left"):
 		velocity.x = -speed
+		if !footstep_audio.playing and is_on_floor():
+			footstep_audio.play()
 	elif Input.is_action_pressed("right"):
 		velocity.x = speed
+		if !footstep_audio.playing and is_on_floor():
+			footstep_audio.play()
 	else:
 		velocity.x = lerp(velocity.x, 0, 0.4)
+		footstep_audio.stop()
 
 func _set_lookahead():
 	if facing_left:
