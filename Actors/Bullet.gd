@@ -3,8 +3,7 @@ extends Node2D
 var _velocity = Vector2.ZERO
 var speed = 400
 
-func _ready() -> void:
-	pass
+# TODO: Add max life_time here so bullets down persist forever
 
 func fire(start_pos, direction: Vector2):
 	_velocity = direction * speed

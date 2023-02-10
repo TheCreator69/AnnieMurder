@@ -3,18 +3,18 @@ extends KinematicBody2D
 # TODO: Add camera to player, so player is at center of screen
 
 var speed = 350
-var jumpSpeed = 775
+var jump_speed = 775
 var gravity = 20
-var maxGravity = 500
+var max_gravity = 500
 var velocity = Vector2()
 var facing_left = false
 
-var coyoteTime = 0
-var jumpBufferTime = 0
+var coyote_time = 0
+var jump_buffer_time = 0
 var was_on_floor = is_on_floor()
 
 onready var flipper = $Flipper
-onready var murderDetection = $Flipper/MurderDetection
+onready var murder_detection = $Flipper/MurderDetection
 onready var camera = $Camera2D
 onready var pause_menu = $PauseMenu
 
@@ -37,8 +37,8 @@ func _input(event):
 			flipper.scale.x = 1
 			facing_left = false
 	elif event.is_action_pressed("murder"):
-		if(murderDetection.is_colliding()):
-			var enemy = murderDetection.get_collider()
+		if(murder_detection.is_colliding()):
+			var enemy = murder_detection.get_collider()
 			if enemy.has_method("is_enemy") and is_instance_valid(enemy):
 				enemy.attempt_kill()
 				stabby_audio.play()
@@ -54,23 +54,23 @@ func _set_velocity():
 		velocity.y = 0
 	if not is_on_floor():
 		velocity.y += gravity
-		velocity.y = min(velocity.y, maxGravity)
+		velocity.y = min(velocity.y, max_gravity)
 		# TODO: Allow player to stick to ceiling?
 	else:
 		velocity.y = 5 # >0 so player is always colliding with floor (used for is_on_floor())
 	
 	if !was_on_floor and is_on_floor():
-		if jumpBufferTime > 0:
-			velocity.y = -jumpSpeed
-			jumpBufferTime = 0
+		if jump_buffer_time > 0:
+			velocity.y = -jump_speed
+			jump_buffer_time = 0
 			jump_audio.play()
 	
 	if Input.is_action_just_pressed("jump"):
-		if is_on_floor() or coyoteTime <= 0.25:
-			velocity.y = -jumpSpeed
+		if is_on_floor() or coyote_time <= 0.25:
+			velocity.y = -jump_speed
 			jump_audio.play()
 		else:
-			jumpBufferTime = 0.15
+			jump_buffer_time = 0.15
 		
 	if Input.is_action_pressed("left"):
 		velocity.x = -speed
@@ -92,12 +92,12 @@ func _set_lookahead():
 
 func _set_koyote_time(delta):
 	if is_on_floor():
-		coyoteTime = 0
+		coyote_time = 0
 	else:
-		coyoteTime += delta
+		coyote_time += delta
 
 func _set_jump_buffer_time(delta):
-	jumpBufferTime -= delta
+	jump_buffer_time -= delta
 
 func _physics_process(delta):
 	_set_koyote_time(delta)

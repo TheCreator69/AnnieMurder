@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://UI/LevelSelectMenu.gd" type="Script" id=1]
 [ext_resource path="res://Art/PictureBase.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Art/FrenchBook.jpg" type="Texture" id=6]
 [ext_resource path="res://Art/Creator.png" type="Texture" id=7]
 [ext_resource path="res://Sounds/ButtonGoClick.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Art/Skull.png" type="Texture" id=9]
 
 [node name="LevelSelectMenu" type="Control"]
 anchor_right = 1.0
@@ -38,6 +39,14 @@ margin_bottom = 195.0
 texture = ExtResource( 3 )
 expand = true
 
+[node name="Skull1" type="TextureRect" parent="LevelSelect"]
+margin_left = 98.0
+margin_top = 49.0
+margin_right = 189.0
+margin_bottom = 147.0
+texture = ExtResource( 9 )
+expand = true
+
 [node name="LevelSelect2" type="Button" parent="."]
 margin_left = 716.0
 margin_top = 22.0
@@ -52,6 +61,14 @@ margin_top = 85.0
 margin_right = 183.0
 margin_bottom = 174.0
 texture = ExtResource( 5 )
+expand = true
+
+[node name="Skull2" type="TextureRect" parent="LevelSelect2"]
+margin_left = 93.0
+margin_top = 87.0
+margin_right = 178.0
+margin_bottom = 172.0
+texture = ExtResource( 9 )
 expand = true
 
 [node name="LevelSelect3" type="Button" parent="."]
@@ -70,6 +87,14 @@ margin_bottom = 177.0
 texture = ExtResource( 6 )
 expand = true
 
+[node name="Skull3" type="TextureRect" parent="LevelSelect3"]
+margin_left = 84.0
+margin_top = 74.0
+margin_right = 179.0
+margin_bottom = 169.0
+texture = ExtResource( 9 )
+expand = true
+
 [node name="LevelSelect5" type="Button" parent="."]
 margin_left = 374.0
 margin_top = 14.0
@@ -86,6 +111,14 @@ margin_bottom = 168.0
 texture = ExtResource( 7 )
 expand = true
 
+[node name="Skull4" type="TextureRect" parent="LevelSelect5"]
+margin_left = 94.0
+margin_top = 84.0
+margin_right = 170.0
+margin_bottom = 160.0
+texture = ExtResource( 9 )
+expand = true
+
 [node name="ButtonClickAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 
@@ -93,5 +126,5 @@ stream = ExtResource( 8 )
 [connection signal="pressed" from="LevelSelect2" to="." method="_on_LevelSelect2_pressed"]
 [connection signal="pressed" from="LevelSelect3" to="." method="_on_LevelSelect2_pressed"]
 [connection signal="pressed" from="LevelSelect3" to="." method="_on_LevelSelect3_pressed"]
-[connection signal="pressed" from="LevelSelect5" to="." method="_on_LevelSelect2_pressed"]
 [connection signal="pressed" from="LevelSelect5" to="." method="_on_LevelSelect5_pressed"]
+[connection signal="pressed" from="LevelSelect5" to="." method="_on_LevelSelect2_pressed"]

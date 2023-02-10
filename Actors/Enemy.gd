@@ -2,16 +2,15 @@ extends KinematicBody2D
 
 var player = null
 
-var speed = 200
+var speed = 100
 var velocity = Vector2(speed, 0)
-# TODO: Export this variable for better control for level designers: which way do enemies start off?
 export var facing_left = false
 
 onready var vision = $Vision
-onready var floorDetector = $FloorDetector
-onready var shotTimer = $ShotTimer
-onready var searchTimer = $SearchTimer
-onready var bulletSpawnPos = $BulletSpawnPosition
+onready var floor_detector = $FloorDetector
+onready var shot_timer = $ShotTimer
+onready var search_timer = $SearchTimer
+onready var bullet_spawn_pos = $BulletSpawnPosition
 
 var Bullet = preload("res://Actors/Bullet.tscn")
 onready var gunshot_audio = $GunshotAudio
@@ -21,10 +20,10 @@ enum State {
 	SEARCHING,
 	CHASING
 }
-var enemyState = State.PATROLLING
+var enemy_state = State.PATROLLING
 
-var timeBetweenShots = 1
-var searchTime = 5
+var time_between_shots = 0.5
+var search_time = 5
 
 func _ready() -> void:
 	if facing_left:
@@ -32,26 +31,26 @@ func _ready() -> void:
 		velocity.x = -velocity.x
 	
 func _move_around():
-	match enemyState:
+	match enemy_state:
 		State.PATROLLING:
-			if is_on_wall() or not floorDetector.is_colliding():
+			if is_on_wall() or not floor_detector.is_colliding():
 				velocity.x = -velocity.x
 				scale.x = -scale.x
 				facing_left = not facing_left
 		State.SEARCHING:
-			if is_on_wall() or not floorDetector.is_colliding():
+			if is_on_wall() or not floor_detector.is_colliding():
 				velocity.x = -velocity.x
 				scale.x = -scale.x
 				facing_left = not facing_left
 		State.CHASING:
-			if is_on_wall() or not floorDetector.is_colliding():
+			if is_on_wall() or not floor_detector.is_colliding():
 				velocity.x = 0
 		_:
 			pass
 
 func _switch_state(new_state):
 	print(State.keys()[new_state])
-	enemyState = new_state
+	enemy_state = new_state
 	match new_state:
 		State.PATROLLING:
 			speed = 100
@@ -73,22 +72,24 @@ func _physics_process(delta):
 	move_and_slide(velocity, Vector2.UP)
 
 func _on_Vision_area_entered(area: Area2D) -> void:
-	var spaceState = get_world_2d().direct_space_state
+	var space_state = get_world_2d().direct_space_state
 	
-	var rayCastResult = spaceState.intersect_ray(global_position, area.global_position, [self])
-	var collider = rayCastResult.get("collider")
+	var ray_cast_result = space_state.intersect_ray(global_position, area.global_position, [self])
+	var collider = ray_cast_result.get("collider")
 	
 	if collider.has_method("is_player"):
 		player = collider
+		if enemy_state == State.SEARCHING:
+			shoot()
 		_switch_state(State.CHASING)
-		shotTimer.start(timeBetweenShots)
-		searchTimer.stop()
+		shot_timer.start(time_between_shots)
+		search_timer.stop()
 
 func _on_Vision_area_exited(area: Area2D) -> void:
-	if area.get_parent().has_method("is_player") and enemyState == State.CHASING:
+	if area.get_parent().has_method("is_player") and enemy_state == State.CHASING:
 		_switch_state(State.SEARCHING)
-		searchTimer.start(searchTime)
-		shotTimer.stop()
+		search_timer.start(search_time)
+		shot_timer.stop()
 		player = null
 
 func _on_ShotTimer_timeout() -> void:
@@ -98,15 +99,15 @@ func _on_ShotTimer_timeout() -> void:
 
 func shoot() -> void:
 	var bullet = Bullet.instance()
-	var vectorToPlayer = player.global_position - global_position
-	bullet.fire(bulletSpawnPos.global_position, vectorToPlayer.normalized())
+	var vector_to_player = player.global_position - global_position
+	bullet.fire(bullet_spawn_pos.global_position, vector_to_player.normalized())
 	get_tree().current_scene.add_child(bullet) # Add bullet to level
 
-func _on_SearchTimer_timeout() -> void:
+func _on_search_timer_timeout() -> void:
 	_switch_state(State.PATROLLING)
 
 func attempt_kill():
-	if enemyState != State.CHASING:
+	if enemy_state != State.CHASING:
 		queue_free()
 
 func is_enemy():
