@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://UI/PauseMenu.gd" type="Script" id=1]
 [ext_resource path="res://Sounds/ButtonGoClick.mp3" type="AudioStream" id=2]
@@ -13,6 +13,20 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="Theme" id=1]
 default_font = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -34,6 +48,7 @@ margin_left = 450.0
 margin_top = 234.0
 margin_right = 636.0
 margin_bottom = 327.0
+theme = SubResource( 4 )
 text = "Continue"
 
 [node name="KwitButton" type="Button" parent="."]
@@ -41,6 +56,7 @@ margin_left = 446.0
 margin_top = 380.0
 margin_right = 632.0
 margin_bottom = 473.0
+theme = SubResource( 6 )
 text = "Kwit"
 
 [node name="ButtonClickAudio" type="AudioStreamPlayer" parent="."]

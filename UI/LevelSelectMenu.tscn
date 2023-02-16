@@ -103,7 +103,7 @@ margin_bottom = 276.0
 icon = ExtResource( 2 )
 flat = true
 
-[node name="TextureRect4" type="TextureRect" parent="LevelSelect5"]
+[node name="CreatorIcon" type="TextureRect" parent="LevelSelect5"]
 margin_left = 87.0
 margin_top = 76.0
 margin_right = 179.0

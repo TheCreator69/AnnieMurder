@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/ButtonFont.tres" type="Theme" id=1]
+[ext_resource path="res://UI/IntroStory.gd" type="Script" id=2]
+
+[node name="IntroStory" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1034.0
+margin_bottom = 616.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="PlayerInfo" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -486.0
+margin_top = 47.0
+margin_right = 490.0
+margin_bottom = 468.0
+theme = ExtResource( 1 )
+text = "Codename: Annie
+Real Name: Annie
+Age: 14
+Assignment: Murder
+Additional Assignment: More Murder
+
+Details: Infiltrate Horni Inc. Headquarters and
+assassinate their four top harbingers.
+This might be our only shot at killing the mysterious CHO (Chief Horni Officer).
+
+Avenge your fallen lover Childe.
+The agency is counting on you."
+align = 1
+valign = 1
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 373.0
+margin_top = 530.0
+margin_right = 659.0
+margin_bottom = 582.0
+theme = ExtResource( 1 )
+text = "Start Mission"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

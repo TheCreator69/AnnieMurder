@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/ButtonFont.tres" type="Theme" id=1]
+[ext_resource path="res://UI/OutroStory.gd" type="Script" id=2]
+
+[node name="OutroStory" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1034.0
+margin_bottom = 616.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="PlayerInfo" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -460.0
+margin_top = 45.0
+margin_right = 461.0
+margin_bottom = 466.0
+theme = ExtResource( 1 )
+text = "And so Annie finished her mission.
+But little did she know, the rectangle she had just slain was her father!
+DUN DUN DUUUUUUUUN!
+
+Annieways, once she found out, she was shook with guilt.
+She swore of murder for good and left the agency behind.
+
+She now works as a coding teacher at the local crewmate school,
+helping students create French Discord.js bots.
+
+In the end, murder is never the answer. French is."
+align = 1
+valign = 1
+
+[node name="KwitButton" type="Button" parent="."]
+margin_left = 373.0
+margin_top = 530.0
+margin_right = 659.0
+margin_bottom = 582.0
+theme = ExtResource( 1 )
+text = "Start Teaching French"
+
+[connection signal="pressed" from="KwitButton" to="." method="_on_KwitButton_pressed"]

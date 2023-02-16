@@ -5,6 +5,8 @@ onready var level_select_1 = $LevelSelect2
 onready var level_select_2 = $LevelSelect3
 onready var level_select_4 = $LevelSelect5
 
+onready var creator = $LevelSelect5/CreatorIcon
+
 onready var skull_1 = $LevelSelect/Skull1
 onready var skull_2 = $LevelSelect2/Skull2
 onready var skull_3 = $LevelSelect3/Skull3
@@ -19,8 +21,11 @@ func _ready() -> void:
 	skull_2.visible = Global.is_target_dead(1)
 	level_select_2.disabled = Global.is_target_dead(2)
 	skull_3.visible = Global.is_target_dead(2)
-	level_select_4.disabled = not (level_select_0.disabled and level_select_1.disabled and level_select_2.disabled)
+	
+	var creatorLocked = not (level_select_0.disabled and level_select_1.disabled and level_select_2.disabled)
+	level_select_4.disabled = creatorLocked
 	skull_4.visible = Global.is_target_dead(3)
+	creator.visible = not creatorLocked
 	
 func _on_LevelSelect_pressed() -> void:
 	button_audio.play()
