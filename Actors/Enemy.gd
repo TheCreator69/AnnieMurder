@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal alert_change(enemy, is_alert)
+
 var player = null
 
 var speed = 100
@@ -49,21 +51,22 @@ func _move_around():
 			pass
 
 func _switch_state(new_state):
-	print(State.keys()[new_state])
 	enemy_state = new_state
 	match new_state:
 		State.PATROLLING:
 			speed = 100
 			velocity.x = -speed if facing_left else speed
 			vision.scale = Vector2(1, 1)
+			emit_signal("alert_change", self, false)
 		State.SEARCHING:
-			speed = 200
+			speed = 150
 			velocity.x = -speed if facing_left else speed
 			vision.scale = Vector2(2, 2)
 		State.CHASING:
 			speed = 250
 			velocity.x = -speed if facing_left else speed
 			vision.scale = Vector2(2, 2)
+			emit_signal("alert_change", self, true)
 		_:
 			pass
 
@@ -103,11 +106,12 @@ func shoot() -> void:
 	bullet.fire(bullet_spawn_pos.global_position, vector_to_player.normalized())
 	get_tree().current_scene.add_child(bullet) # Add bullet to level
 
-func _on_search_timer_timeout() -> void:
+func _on_SearchTimer_timeout() -> void:
 	_switch_state(State.PATROLLING)
 
 func attempt_kill():
 	if enemy_state != State.CHASING:
+		emit_signal("alert_change", self, false)
 		queue_free()
 
 func is_enemy():

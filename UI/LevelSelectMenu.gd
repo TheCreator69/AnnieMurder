@@ -29,16 +29,16 @@ func _ready() -> void:
 	
 func _on_LevelSelect_pressed() -> void:
 	button_audio.play()
-	get_tree().change_scene("res://Levels/TestMap.tscn")
+	SceneTransition.change_scene("res://Levels/TestMap.tscn")
 
 func _on_LevelSelect2_pressed() -> void:
 	button_audio.play()
-	get_tree().change_scene("res://Levels/TestMap.tscn")
+	SceneTransition.change_scene("res://Levels/TestMap.tscn")
 
 func _on_LevelSelect3_pressed() -> void:
 	button_audio.play()
-	get_tree().change_scene("res://Levels/TestMap.tscn")
+	SceneTransition.change_scene("res://Levels/TestMap.tscn")
 
 func _on_LevelSelect5_pressed() -> void:
 	button_audio.play()
-	get_tree().change_scene("res://Levels/TestMap.tscn")
+	SceneTransition.change_scene("res://Levels/TestMap.tscn")

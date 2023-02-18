@@ -11,4 +11,4 @@ func _on_KwitButton_pressed() -> void:
 	button_audio.play()
 	get_tree().paused = false
 	owner._on_pause_change(false)
-	get_tree().change_scene("res://UI/LevelSelectMenu.tscn")
+	SceneTransition.change_scene("res://UI/LevelSelectMenu.tscn")

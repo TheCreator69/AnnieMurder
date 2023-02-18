@@ -1,4 +1,5 @@
 extends Control
 
 func _on_StartButton_pressed() -> void:
-	get_tree().change_scene("res://UI/LevelSelectMenu.tscn")
+	$ButtonClick.play()
+	SceneTransition.change_scene("res://UI/LevelSelectMenu.tscn")

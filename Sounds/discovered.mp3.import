@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/discovered.mp3-345e145666c5e501fc2df6c0f552a5cc.mp3str"
+
+[deps]
+
+source_file="res://Sounds/discovered.mp3"
+dest_files=[ "res://.import/discovered.mp3-345e145666c5e501fc2df6c0f552a5cc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

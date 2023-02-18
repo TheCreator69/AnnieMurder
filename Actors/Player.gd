@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-# TODO: Add camera to player, so player is at center of screen
-
 var speed = 350
 var jump_speed = 775
 var gravity = 20
@@ -21,6 +19,11 @@ onready var pause_menu = $PauseMenu
 onready var jump_audio = $JumpAudio
 onready var stabby_audio = $StabbyAudio
 onready var footstep_audio = $FootstepAudio
+
+onready var bg_music = $BackgroundMusic
+onready var more_music = $DetectionMusic
+
+onready var annie_sprite = $Flipper/AnnieSprite
 
 signal player_died
 
@@ -55,7 +58,6 @@ func _set_velocity():
 	if not is_on_floor():
 		velocity.y += gravity
 		velocity.y = min(velocity.y, max_gravity)
-		# TODO: Allow player to stick to ceiling?
 	else:
 		velocity.y = 5 # >0 so player is always colliding with floor (used for is_on_floor())
 	
@@ -99,11 +101,20 @@ func _set_koyote_time(delta):
 func _set_jump_buffer_time(delta):
 	jump_buffer_time -= delta
 
+func _animate():
+	if !is_on_floor():
+		annie_sprite.play("jump")
+	elif Input.is_action_pressed("left") or Input.is_action_pressed("right"):
+		annie_sprite.play("run")
+	else:
+		annie_sprite.play("idle")
+
 func _physics_process(delta):
 	_set_koyote_time(delta)
 	_set_jump_buffer_time(delta)
 	_set_velocity()
 	_set_lookahead()
+	_animate()
 	was_on_floor = is_on_floor()
 	move_and_slide(velocity, Vector2.UP)
 
