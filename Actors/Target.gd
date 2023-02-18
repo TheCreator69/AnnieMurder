@@ -13,7 +13,10 @@ func _ready() -> void:
 
 func kill():
 	Global.target_killed(target_index)
-	SceneTransition.change_scene("res://UI/LevelSelectMenu.tscn")
+	if target_index == 3:
+		SceneTransition.change_scene("res://UI/OutroStory.tscn")
+	else:
+		SceneTransition.change_scene("res://UI/LevelSelectMenu.tscn")
 
 func is_target():
 	return 0

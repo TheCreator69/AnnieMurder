@@ -23,7 +23,7 @@ margin_bottom = 627.0
 texture = ExtResource( 4 )
 expand = true
 
-[node name="LevelSelect" type="Button" parent="."]
+[node name="LevelSelect1" type="Button" parent="."]
 margin_left = 63.0
 margin_top = 24.0
 margin_right = 331.0
@@ -31,7 +31,7 @@ margin_bottom = 286.0
 icon = ExtResource( 2 )
 flat = true
 
-[node name="TextureRect" type="TextureRect" parent="LevelSelect"]
+[node name="TextureRect" type="TextureRect" parent="LevelSelect1"]
 margin_left = 83.0
 margin_top = 59.0
 margin_right = 185.0
@@ -39,7 +39,7 @@ margin_bottom = 195.0
 texture = ExtResource( 3 )
 expand = true
 
-[node name="Skull1" type="TextureRect" parent="LevelSelect"]
+[node name="Skull1" type="TextureRect" parent="LevelSelect1"]
 margin_left = 98.0
 margin_top = 49.0
 margin_right = 189.0
@@ -95,7 +95,7 @@ margin_bottom = 169.0
 texture = ExtResource( 9 )
 expand = true
 
-[node name="LevelSelect5" type="Button" parent="."]
+[node name="LevelSelect4" type="Button" parent="."]
 margin_left = 374.0
 margin_top = 14.0
 margin_right = 642.0
@@ -103,7 +103,7 @@ margin_bottom = 276.0
 icon = ExtResource( 2 )
 flat = true
 
-[node name="CreatorIcon" type="TextureRect" parent="LevelSelect5"]
+[node name="CreatorIcon" type="TextureRect" parent="LevelSelect4"]
 margin_left = 87.0
 margin_top = 76.0
 margin_right = 179.0
@@ -111,7 +111,7 @@ margin_bottom = 168.0
 texture = ExtResource( 7 )
 expand = true
 
-[node name="Skull4" type="TextureRect" parent="LevelSelect5"]
+[node name="Skull4" type="TextureRect" parent="LevelSelect4"]
 margin_left = 94.0
 margin_top = 84.0
 margin_right = 170.0
@@ -122,9 +122,7 @@ expand = true
 [node name="ButtonClickAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 
-[connection signal="pressed" from="LevelSelect" to="." method="_on_LevelSelect_pressed"]
+[connection signal="pressed" from="LevelSelect1" to="." method="_on_LevelSelect_pressed"]
 [connection signal="pressed" from="LevelSelect2" to="." method="_on_LevelSelect2_pressed"]
-[connection signal="pressed" from="LevelSelect3" to="." method="_on_LevelSelect2_pressed"]
 [connection signal="pressed" from="LevelSelect3" to="." method="_on_LevelSelect3_pressed"]
-[connection signal="pressed" from="LevelSelect5" to="." method="_on_LevelSelect5_pressed"]
-[connection signal="pressed" from="LevelSelect5" to="." method="_on_LevelSelect2_pressed"]
+[connection signal="pressed" from="LevelSelect4" to="." method="_on_LevelSelect4_pressed"]
